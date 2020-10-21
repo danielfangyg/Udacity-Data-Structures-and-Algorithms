@@ -1,0 +1,5 @@
+Task 0: Worst Big O is O(1)
+Task 1: Worst Big O is O(n)
+Task 2: Worst Big O is O(n)
+Task 3: Worst Big O is O(n)
+Task 4: Worst Big O is O(n)
