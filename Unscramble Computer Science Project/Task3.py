@@ -68,5 +68,4 @@ if __name__ == '__main__':
     '''Part B'''
     dict_prefix = {p: prefixes.count(p) for p in prefixes}
     perc = round(100 * dict_prefix["080"]/len(prefixes), 2)
-    print("{} percent of calls from fixed lines in Bangalore " +
-          "are calls to other fixed lines in Bangalore.".format(perc))
+    print("{} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.".format(perc))

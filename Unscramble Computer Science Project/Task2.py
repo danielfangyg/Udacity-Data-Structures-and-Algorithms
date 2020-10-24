@@ -27,5 +27,4 @@ if __name__ == '__main__':
         time_dict[c[1]] = time_dict.get(c[1], 0) + int(c[3])
     max_num = max(time_dict, key=time_dict.get)
     max_time = time_dict[max_num]
-    print("{} spent the longest time, {} seconds, " +
-          "on the phone during September 2016.".format(max_num, max_time))
+    print("{} spent the longest time, {} seconds, on the phone during September 2016.".format(max_num, max_time))

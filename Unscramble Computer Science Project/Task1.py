@@ -28,5 +28,4 @@ if __name__ == '__main__':
     total_num = total_num_text + total_num_calls
     total_num_dedupe = set(total_num)
     total_len = len(total_num_dedupe)
-    print("There are {} different telephone " +
-          "numbers in the records.".format(total_len))
+    print("There are {} different telephone numbers in the records.".format(total_len))
