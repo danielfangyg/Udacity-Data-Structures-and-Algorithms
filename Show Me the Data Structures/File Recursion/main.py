@@ -2,7 +2,6 @@ import os
 
 
 def find_files(subffix, path):
-    # o.listdir
     file_path_list = []
     for sub in os.listdir(path):
         sub_path = os.path.join(path, sub)
@@ -16,6 +15,6 @@ def find_files(subffix, path):
 
 
 if __name__ == "__main__":
-    test_list = find_files("c", "./testdir")
+    test_list = find_files("c", r"E:\Projects\Data Structures and Algorithms\Show Me the Data Structures\File Recursion\testdir")
     for path in test_list:
         print(path)

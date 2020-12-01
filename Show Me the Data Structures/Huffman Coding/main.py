@@ -36,9 +36,6 @@ class Node:
     def __repr__(self):
         return f"Node({self.get_value()})"
 
-    def __str__(self):
-        return f"Node({self.get_value()})"
-
 
 class HuffmanNode(Node):
     def __init__(self, char, freq, code=""):
@@ -66,10 +63,6 @@ class HuffmanNode(Node):
         return self.code
 
     def __repr__(self):
-        return "HuffmanNode({}, {}, {})".format(
-                self.get_char(), self.get_freq(), self.get_code())
-
-    def __str__(self):
         return "HuffmanNode({}, {}, {})".format(
                 self.get_char(), self.get_freq(), self.get_code())
 
@@ -161,7 +154,7 @@ class PriorityQueue:
         node_value = heapq.heappop(self.pq)
         return self.node_map[node_value]
 
-    def __str__(self):
+    def __repr__(self):
         return str([self.node_map[tuple_] for tuple_ in self.pq])
 
     def __len__(self):
