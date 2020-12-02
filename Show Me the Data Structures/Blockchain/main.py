@@ -4,6 +4,7 @@ from datetime import datetime
 
 class Block:
     def __init__(self, timestamp, data, previous_hash):
+        assert data is not None, "input data is invalid"
         self.timestamp = timestamp
         self.data = data
         self.previous_hash = previous_hash
@@ -72,7 +73,7 @@ class BlockChain:
         return output
 
 
-def main():
+def test_case1():
     # Test Case 1
     bl = BlockChain()
     data1 = "First Blockchain block"
@@ -81,18 +82,36 @@ def main():
     bl.append(data1)
     bl.append(data2)
     bl.append(data3)
-    print(bl.to_list())
+    for block in bl.to_list():
+        print(block)
+    # expect to see 3 blocks
+
+def test_case2():
     # Test Case 2
     bl1 = BlockChain()
     bl1.append("")
     bl1.append("")
-    print(bl1.to_list())
+    for block in bl1.to_list():
+        print(block)
+    # expect to see 2 blocks
+
+def test_case3():
     # Test Case 3
     bl2 = BlockChain()
     bl2.append(None)
     bl2.append(None)
     print(bl2.to_list())
 
+    # expect to raise AssertionError
 
 if __name__ == "__main__":
-    main()
+    import time
+    print("***test case 1***")
+    test_case1()
+    print("\n")
+    print("***test case 2***")
+    test_case2()
+    print("\n")
+    print("***test case 3***")
+    time.sleep(1)
+    test_case3()

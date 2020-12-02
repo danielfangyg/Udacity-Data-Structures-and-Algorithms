@@ -203,6 +203,7 @@ def encode_huffman_tree(tree):
 
 
 def huffman_encoding(data):
+    assert data is not None and len(data) > 0, "Input data is invalid"
     freq_dict = {}
     for key in data:
         freq_dict[key] = freq_dict.get(key, 0) + 1
@@ -240,13 +241,40 @@ def huffman_decoding(data, tree):
     return decoded_data
 
 
-if __name__ == "__main__":
-    # test_str = "AAAAAAABBBCCCCCCCDDEEEEEE"
-    # encoded_str, encoded_tree = huffman_encoding(test_str)
-    # print(encoded_str)
-    # decoded_str = huffman_decoding(encoded_str, encoded_tree)
-    # print(decoded_str)
+def test_case1():
+    a_great_sentence = "AAAAAAABBBCCCCCCCDDEEEEEE"
 
+    print("The size of the data is: {}\n".format(
+            sys.getsizeof(a_great_sentence)))
+    print("The content of the data is: {}\n".format(a_great_sentence))
+
+    encoded_data, tree = huffman_encoding(a_great_sentence)
+    print("The size of the encoded data is: {}\n".format(
+            sys.getsizeof(int(encoded_data, base=2))))
+    print("The content of the encoded data is: {}\n".format(encoded_data))
+
+    decoded_data = huffman_decoding(encoded_data, tree)
+
+    print("The size of the decoded data is: {}\n".format(
+            sys.getsizeof(decoded_data)))
+    print("The content of the encoded data is: {}\n".format(decoded_data))
+
+    # expected output
+    '''
+    The size of the data is: 74
+
+    The content of the data is: AAAAAAABBBCCCCCCCDDEEEEEE
+
+    The size of the encoded data is: 32
+
+    The content of the encoded data is: 1010101010101000100100111111111111111000000010101010101
+
+    The size of the decoded data is: 74
+
+    The content of the encoded data is: AAAAAAABBBCCCCCCCDDEEEEEE
+    '''
+
+def test_case2():
     a_great_sentence = "The bird is the word"
 
     print("The size of the data is: {}\n".format(
@@ -263,3 +291,77 @@ if __name__ == "__main__":
     print("The size of the decoded data is: {}\n".format(
             sys.getsizeof(decoded_data)))
     print("The content of the encoded data is: {}\n".format(decoded_data))
+
+    # expected output
+    '''
+    The size of the data is: 69
+
+    The content of the data is: The bird is the word
+
+    The size of the encoded data is: 36
+
+    The content of the encoded data is: 1111001101011011111100101111011010000011100010011010110001100001011110
+
+    The size of the decoded data is: 69
+
+    The content of the encoded data is: The bird is the word
+    '''
+
+
+def test_case3():
+    a_great_sentence = ""
+
+    print("The size of the data is: {}\n".format(
+            sys.getsizeof(a_great_sentence)))
+    print("The content of the data is: {}\n".format(a_great_sentence))
+
+    encoded_data, tree = huffman_encoding(a_great_sentence)
+    print("The size of the encoded data is: {}\n".format(
+            sys.getsizeof(int(encoded_data, base=2))))
+    print("The content of the encoded data is: {}\n".format(encoded_data))
+
+    decoded_data = huffman_decoding(encoded_data, tree)
+
+    print("The size of the decoded data is: {}\n".format(
+            sys.getsizeof(decoded_data)))
+    print("The content of the encoded data is: {}\n".format(decoded_data))
+
+    # expected to raise AssertionError
+
+
+def test_case4():
+    a_great_sentence = None
+
+    print("The size of the data is: {}\n".format(
+            sys.getsizeof(a_great_sentence)))
+    print("The content of the data is: {}\n".format(a_great_sentence))
+
+    encoded_data, tree = huffman_encoding(a_great_sentence)
+    print("The size of the encoded data is: {}\n".format(
+            sys.getsizeof(int(encoded_data, base=2))))
+    print("The content of the encoded data is: {}\n".format(encoded_data))
+
+    decoded_data = huffman_decoding(encoded_data, tree)
+
+    print("The size of the decoded data is: {}\n".format(
+            sys.getsizeof(decoded_data)))
+    print("The content of the encoded data is: {}\n".format(decoded_data))
+
+    # expected to raise AssertionError
+
+
+if __name__ == "__main__":
+    import time
+    print("***test case 1***")
+    test_case1()
+    print("\n")
+    print("***test case 2***")
+    test_case2()
+    print("\n")
+    print("***test case 3***")
+    time.sleep(1)
+    test_case3()
+    print("\n")
+    print("***test case 4***")
+    time.sleep(1)
+    test_case4()

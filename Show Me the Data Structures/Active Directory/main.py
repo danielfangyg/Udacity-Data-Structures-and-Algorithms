@@ -3,6 +3,7 @@ from collections import deque
 
 class Group(object):
     def __init__(self, _name):
+        assert _name is not None, "name is invalid"
         self.name = _name
         self.groups = []
         self.users = []
@@ -46,7 +47,7 @@ def is_user_in_group(user, group):
         return False
 
 
-if __name__ == '__main__':
+def test_case1():
     parent = Group("parent")
     child = Group("child")
     sub_child = Group("subchild")
@@ -58,3 +59,69 @@ if __name__ == '__main__':
     parent.add_group(child)
 
     print(is_user_in_group("sub_child_user", child))
+
+    # Expect True in ouput
+
+
+def test_case2():
+    parent = Group("")
+    child = Group("")
+    sub_child = Group("")
+
+    sub_child_user = ""
+    sub_child.add_user(sub_child_user)
+
+    child.add_group(sub_child)
+    parent.add_group(child)
+
+    print(is_user_in_group("", child))
+
+    # Expect True in ouput
+
+
+def test_case3():
+    parent = Group(u'A unicode \u018e string \xf1')
+    child = Group(u'B unicode \u018e string \xf1')
+    sub_child = Group(u'C unicode \u018e string \xf1')
+
+    sub_child_user = u'D unicode \u018e string \xf1'
+    sub_child.add_user(sub_child_user)
+
+    child.add_group(sub_child)
+    parent.add_group(child)
+
+    print(is_user_in_group(u'D unicode \u018e string \xf1', child))
+
+    # Expect True in ouput
+
+
+def test_case4():
+    parent = Group(None)
+    child = Group(None)
+    sub_child = Group(None)
+
+    sub_child_user = None
+    sub_child.add_user(sub_child_user)
+
+    child.add_group(sub_child)
+    parent.add_group(child)
+
+    print(is_user_in_group(None, child))
+
+    # Expect AssertionError
+
+if __name__ == '__main__':
+    import time
+    print("***test case 1***")
+    test_case1()
+    print("\n")
+    print("***test case 2***")
+    test_case2()
+    print("\n")
+    print("***test case 3***")
+    time.sleep(1)
+    test_case3()
+    print("\n")
+    print("***test case 4***")
+    time.sleep(1)
+    test_case4()
