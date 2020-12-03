@@ -4,7 +4,8 @@ from datetime import datetime
 
 class Block:
     def __init__(self, timestamp, data, previous_hash):
-        assert data is not None, "input data is invalid"
+        if data is None:
+            raise ValueError("Input data should not be none")
         self.timestamp = timestamp
         self.data = data
         self.previous_hash = previous_hash
@@ -24,8 +25,6 @@ class Block:
         return self.hash
 
     def calc_hash(self, data):
-        if data is None:
-            return None
         sha = hashlib.sha256()
         hash_str = data.encode('utf-8')
         sha.update(hash_str)
@@ -102,7 +101,7 @@ def test_case3():
     bl2.append(None)
     print(bl2.to_list())
 
-    # expect to raise AssertionError
+    # expect to ValueError("Input data should not be none")
 
 if __name__ == "__main__":
     import time
@@ -114,4 +113,7 @@ if __name__ == "__main__":
     print("\n")
     print("***test case 3***")
     time.sleep(1)
-    test_case3()
+    try:
+        test_case3()
+    except ValueError as er:
+        print(er)

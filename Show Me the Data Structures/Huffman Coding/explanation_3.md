@@ -6,5 +6,8 @@ PriorityQueue was based on the Python data structure heapq. When performing pop 
 
 The code first builds a Huffman tree based on the input data with the PriorityQueue. Then it traverse the tree to encode each HuffmanNode, and further renders the encoded string. The decoding part uses a deque to iterate over the encoded string. The reason why a queue is used here is that once a leaf node is identified by verifying that there are no more children, the character that was used to determine this termination has to be added back.
 
-time complexity: O(n)
+time complexity: O(nlogn)
+n is the length of a string
 space complexity: O(n)
+n is the length of a string if talking about encoded or decoded strings
+n is the number of unique characters if talking about the dicitonary

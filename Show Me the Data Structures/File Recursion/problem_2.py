@@ -2,6 +2,12 @@ import os
 
 
 def find_files(subffix, path):
+    if path is None:
+        raise ValueError("Path should not be None")
+
+    if not os.path.isdir(path):
+        raise ValueError("The input path is not a directory")
+
     file_path_list = []
     for sub in os.listdir(path):
         sub_path = os.path.join(path, sub)
@@ -15,22 +21,22 @@ def find_files(subffix, path):
 
 
 def test_case1():
-    test_list = find_files("c", r"E:\Projects\Data Structures and Algorithms\Show Me the Data Structures\File Recursion\testdir")
+    test_list = find_files("c", os.path.join(os.getcwd(), r"File Recursion\testdir"))
 
     for path in test_list:
         print(path)
 
     # expected output
     '''
-    E:\Projects\Data Structures and Algorithms\Show Me the Data Structures\File Recursion\testdir\subdir1\a.c
-    E:\Projects\Data Structures and Algorithms\Show Me the Data Structures\File Recursion\testdir\subdir3\subsubdir1\b.c
-    E:\Projects\Data Structures and Algorithms\Show Me the Data Structures\File Recursion\testdir\subdir5\a.c
-    E:\Projects\Data Structures and Algorithms\Show Me the Data Structures\File Recursion\testdir\t1.c
+    %current work directory%\File Recursion\testdir\subdir1\a.c
+    %current work directory%\File Recursion\testdir\subdir3\subsubdir1\b.c
+    %current work directory%\File Recursion\testdir\subdir5\a.c
+    %current work directory%\File Recursion\testdir\t1.c
     '''
 
 
 def test_case2():
-    test_list = find_files("b", r"E:\Projects\Data Structures and Algorithms\Show Me the Data Structures\File Recursion\testdir")
+    test_list = find_files("b", os.path.join(os.getcwd(), r"File Recursion\testdir"))
 
     for path in test_list:
         print(path)
@@ -38,7 +44,7 @@ def test_case2():
 
 
 def test_case3():
-    test_list = find_files(None, r"E:\Projects\Data Structures and Algorithms\Show Me the Data Structures\File Recursion\testdir")
+    test_list = find_files(None, os.path.join(os.getcwd(), r"File Recursion\testdir"))
 
     for path in test_list:
         print(path)
@@ -50,17 +56,41 @@ def test_case4():
 
     for path in test_list:
         print(path)
-    # expect TypeError
+    # expect ValueError message
+    '''Path should not be None'''
+
+
+def test_case5():
+    test_list = find_files("c", os.path.join(os.getcwd(), r"File Recursion\testdir\t1.c"))
+
+    for path in test_list:
+        print(path)
+    # expect ValueError
+    '''The input path is not a directory'''
 
 if __name__ == "__main__":
+    import time
     print("***test case 1***")
     test_case1()
     print("\n")
     print("***test case 2***")
+    time.sleep(1)
     test_case2()
     print("\n")
     print("***test case 3***")
+    time.sleep(1)
     test_case3()
     print("\n")
     print("***test case 4***")
-    test_case4()
+    time.sleep(1)
+    try:
+        test_case4()
+    except ValueError as er:
+        print(er)
+    print("\n")
+    print("***test case 5***")
+    time.sleep(1)
+    try:
+        test_case5()
+    except ValueError as er:
+        print(er)

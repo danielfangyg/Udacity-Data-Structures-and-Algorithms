@@ -2,3 +2,5 @@ For union and intersecton, a Python set was introduced because of the convenienc
 
 Time complexity: O(n)
 Space complexity: O(n)
+
+n is the number of the total elements in two linked lists.

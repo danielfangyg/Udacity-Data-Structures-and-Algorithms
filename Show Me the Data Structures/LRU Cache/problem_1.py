@@ -23,7 +23,8 @@ class LRU_Cache(object):
         # Set the value if the key is not present in the cache.
         # If the cache is at capacity remove the oldest item.
         if key is None:
-            raise ValueError("The key must be a non-noen value")
+            raise ValueError("The key must be a non-none value")
+
         self.cach_dict[key] = value
         if len(self.cach_dict) > self.capacity:
             self.cach_dict.popitem(last=False)
@@ -57,7 +58,9 @@ def test_case3():
     our_cache.set(4, 4)
     our_cache.set(5, None)
     print(our_cache.get(5))  # returns -1
-    our_cache.set(None, 6)  # raise ValueError
+    our_cache.set(None, 6)
+    # raise ValueError with message
+    '''The key must be a non-none value'''
 
 
 if __name__ == "__main__":
@@ -68,4 +71,7 @@ if __name__ == "__main__":
     test_case2()
     print("\n")
     print("****test case 3****")
-    test_case3()
+    try:
+        test_case3()
+    except ValueError as er:
+        print(er)

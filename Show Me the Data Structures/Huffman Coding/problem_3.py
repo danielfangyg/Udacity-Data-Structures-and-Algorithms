@@ -183,6 +183,13 @@ def encode_huffman_tree(tree):
     q = Queue()
     code_map = {}
     node = tree.get_root()
+    if not node.has_left_child() and not node.has_right_child():
+        char = node.get_char()
+        if "dummy" not in char:
+            node.set_code("0")
+            code_map[char] = node.get_code()
+            return tree, code_map
+
     q.enq(node)
     while(len(q) > 0):
         node = q.deq()
@@ -203,7 +210,9 @@ def encode_huffman_tree(tree):
 
 
 def huffman_encoding(data):
-    assert data is not None and len(data) > 0, "Input data is invalid"
+    if data is None or len(data) == 0:
+        raise ValueError("The input data must not be none "
+                         "and the length must be larger than 0")
     freq_dict = {}
     for key in data:
         freq_dict[key] = freq_dict.get(key, 0) + 1
@@ -215,9 +224,13 @@ def huffman_encoding(data):
 
 
 def huffman_decoding(data, tree):
-    char_q = deque(data)
     node = tree.get_root()
+    if len(set(data)) == 1:
+        return node.get_char()*len(data)
+
+    char_q = deque(data)
     decoded_list = []
+
     while(len(char_q) > 0):
         char = char_q.popleft()
         if char == "0":
@@ -274,6 +287,7 @@ def test_case1():
     The content of the encoded data is: AAAAAAABBBCCCCCCCDDEEEEEE
     '''
 
+
 def test_case2():
     a_great_sentence = "The bird is the word"
 
@@ -326,7 +340,9 @@ def test_case3():
             sys.getsizeof(decoded_data)))
     print("The content of the encoded data is: {}\n".format(decoded_data))
 
-    # expected to raise AssertionError
+    # expected to raise ValueError with message
+    '''"The input data must not be None"
+                     "and the length must be larger than 0"'''
 
 
 def test_case4():
@@ -347,7 +363,42 @@ def test_case4():
             sys.getsizeof(decoded_data)))
     print("The content of the encoded data is: {}\n".format(decoded_data))
 
-    # expected to raise AssertionError
+    # expected to raise ValueError with message
+    '''"The input data must not be None"
+                     "and the length must be larger than 0"'''
+
+
+def test_case5():
+    a_great_sentence = "aaaaaa"
+
+    print("The size of the data is: {}\n".format(
+            sys.getsizeof(a_great_sentence)))
+    print("The content of the data is: {}\n".format(a_great_sentence))
+
+    encoded_data, tree = huffman_encoding(a_great_sentence)
+    print("The size of the encoded data is: {}\n".format(
+            sys.getsizeof(int(encoded_data, base=2))))
+    print("The content of the encoded data is: {}\n".format(encoded_data))
+
+    decoded_data = huffman_decoding(encoded_data, tree)
+
+    print("The size of the decoded data is: {}\n".format(
+            sys.getsizeof(decoded_data)))
+    print("The content of the encoded data is: {}\n".format(decoded_data))
+
+    # expected output:
+    '''
+    The size of the data is: 55
+    The content of the data is: aaaaaa
+
+    The size of the encoded data is: 24
+
+    The content of the encoded data is: 000000
+
+    The size of the decoded data is: 55
+
+    The content of the encoded data is: aaaaaa
+    '''
 
 
 if __name__ == "__main__":
@@ -360,8 +411,18 @@ if __name__ == "__main__":
     print("\n")
     print("***test case 3***")
     time.sleep(1)
-    test_case3()
+    try:
+        test_case3()
+    except ValueError as er:
+        print(er)
     print("\n")
     print("***test case 4***")
     time.sleep(1)
-    test_case4()
+    try:
+        test_case4()
+    except ValueError as er:
+        print(er)
+    print("\n")
+    print("***test case 5***")
+    time.sleep(1)
+    test_case5()

@@ -3,7 +3,8 @@ from collections import deque
 
 class Group(object):
     def __init__(self, _name):
-        assert _name is not None, "name is invalid"
+        if _name is None:
+            raise ValueError("name should not be none")
         self.name = _name
         self.groups = []
         self.users = []
@@ -108,7 +109,7 @@ def test_case4():
 
     print(is_user_in_group(None, child))
 
-    # Expect AssertionError
+    # Expect ValueError("name should not be none")
 
 if __name__ == '__main__':
     import time
@@ -124,4 +125,7 @@ if __name__ == '__main__':
     print("\n")
     print("***test case 4***")
     time.sleep(1)
-    test_case4()
+    try:
+        test_case4()
+    except ValueError as er:
+        print(er)

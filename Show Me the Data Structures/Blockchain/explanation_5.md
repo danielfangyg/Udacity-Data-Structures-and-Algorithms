@@ -3,3 +3,5 @@ As suggested by the instruction, the data structure used here was a linked list 
 
 Time complexity: O(n)
 Space complexity: O(n)
+
+n is number of blocks
