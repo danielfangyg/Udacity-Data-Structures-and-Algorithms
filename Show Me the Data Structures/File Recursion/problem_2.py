@@ -6,7 +6,12 @@ def find_files(subffix, path):
         raise ValueError("Path should not be None")
 
     if not os.path.isdir(path):
-        raise ValueError("The input path is not a directory")
+        print("The input path is not a directory")
+        if (os.path.isfile(path)
+                and path.endswith(".{}".format(subffix))):
+            return [path]
+        else:
+            return []
 
     file_path_list = []
     for sub in os.listdir(path):
@@ -65,8 +70,9 @@ def test_case5():
 
     for path in test_list:
         print(path)
-    # expect ValueError
-    '''The input path is not a directory'''
+    # expect output
+    '''%current work directory%\File Recursion\testdir\t1.c'''
+
 
 if __name__ == "__main__":
     import time
