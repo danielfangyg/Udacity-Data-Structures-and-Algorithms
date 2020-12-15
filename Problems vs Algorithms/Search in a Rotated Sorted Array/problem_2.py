@@ -77,8 +77,10 @@ def test_function(test_case):
 
 
 if __name__ == '__main__':
+    '''expect pass for all'''
     test_function([[6, 7, 8, 9, 10, 1, 2, 3, 4], 6])
     test_function([[6, 7, 8, 9, 10, 1, 2, 3, 4], 1])
     test_function([[6, 7, 8, 1, 2, 3, 4], 8])
     test_function([[6, 7, 8, 1, 2, 3, 4], 1])
     test_function([[6, 7, 8, 1, 2, 3, 4], 10])
+    test_function([[], 0])

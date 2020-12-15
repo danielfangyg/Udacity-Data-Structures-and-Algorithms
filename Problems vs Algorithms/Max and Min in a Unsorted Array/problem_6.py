@@ -5,6 +5,12 @@ def get_min_max(ints):
     Args:
        ints(list): list of integers containing one or more integers
     """
+    if ints is None:
+        raise TypeError("The input list must not be none")
+
+    if len(ints) == 0:
+        return None
+
     output_min = 0
     output_max = 0
     for value in ints:
@@ -20,4 +26,14 @@ if __name__ == '__main__':
     l = [i for i in range(0, 10)]  # a list containing 0 - 9
     random.shuffle(l)
 
+    # expect pass
     print("Pass" if ((0, 9) == get_min_max(l)) else "Fail")
+
+    # expect None
+    print(get_min_max([]))
+
+    # expect TypeError(The input list must not be none)
+    try:
+        print(get_min_max(None))
+    except Exception as err:
+        print(err)

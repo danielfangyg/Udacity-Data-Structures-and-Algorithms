@@ -16,6 +16,7 @@ class RouteTrieNode:
     def __str__(self):
         return "RouteTrieNode({})".format(self.handler)
 
+
 # A RouteTrie will store our routes and their associated handlers
 class RouteTrie:
     def __init__(self, root_handler=None, default_handler=None):
